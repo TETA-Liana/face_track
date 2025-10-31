@@ -1,6 +1,6 @@
 """
 face_track_speed.py
-Detects a face from webcam, draws bounding box, shows movement direction (Left/Right/Up/Down)
+Detects a face from webcam, draws bounding box, shows movement direction (Left/Right)
 and estimated speed in pixels/second.
 
 Requirements:
@@ -32,22 +32,10 @@ def bbox_centroid(bbox):
     x, y, w, h = bbox
     return (int(x + w/2), int(y + h/2))
 
-# Helper: compute direction string from dx, dy
+# Helper: compute direction string from dx (Left/Right only)
 def get_direction(dx, dy, thresh=DIRECTION_THRESHOLD):
-    dir_x = ""
-    dir_y = ""
-
     if abs(dx) >= thresh:
-        dir_x = "Right" if dx > 0 else "Left"
-    if abs(dy) >= thresh:
-        dir_y = "Down" if dy > 0 else "Up"
-
-    if dir_x and dir_y:
-        return f"{dir_x}-{dir_y}"
-    elif dir_x:
-        return dir_x
-    elif dir_y:
-        return dir_y
+        return "Right" if dx > 0 else "Left"
     else:
         return "Still"
 
